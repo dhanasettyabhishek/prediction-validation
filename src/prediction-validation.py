@@ -14,13 +14,12 @@ class PredictionValidation(object):
         arguments: max_actual = last element in the list,
         window_size = combination size 
         """
-        from itertools import islice
-        list1 = list()
-        list(map(lambda i: list1.append(i), range(1, max_actual+1)))
-        it = iter(list1)
-        consecutive_combinations = tuple(islice(it, window_size))
+        combination_list = list()
+        list(map(lambda i: combination_list.append(i), range(1, max_actual+1)))
+        consecutive_combinations = tuple(combination_list[: window_size])
         yield consecutive_combinations
-        for i in it:
+        combination_list = combination_list[window_size:]
+        for i in combination_list:
             consecutive_combinations = consecutive_combinations[1:] + (i,)
             yield consecutive_combinations
     
@@ -47,7 +46,7 @@ class PredictionValidation(object):
     
     def error_per_window(self, hour, window_actual, new_window_predicted):
         """
-        per hour the error sum and length of error list is returned.
+        total error and number of observations (per hour) is returned
         """
         window = str(hour)
         errorList = list()

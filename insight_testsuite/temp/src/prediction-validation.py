@@ -7,20 +7,31 @@ Created on Tue Aug 28 15:16:01 2018
 class PredictionValidation(object):
     
     def consecutive_combinations(self, max_actual, window_size):
+        """
+        Returns the combinations lists of consecutive numbers of size = window_size
+        with an increment of one until a maximum value is reached.
         
-        from itertools import islice
-        list1 = list()
-        list(map(lambda i: list1.append(i), range(1, max_actual+1)))
-        it = iter(list1)
-        consecutive_combinations = tuple(islice(it, window_size))
+        arguments: max_actual = last element in the list,
+        window_size = combination size 
+        """
+        combination_list = list()
+        list(map(lambda i: combination_list.append(i), range(1, max_actual+1)))
+        consecutive_combinations = tuple(combination_list[: window_size])
         yield consecutive_combinations
-        for i in it:
+        combination_list = combination_list[window_size:]
+        for i in combination_list:
             consecutive_combinations = consecutive_combinations[1:] + (i,)
             yield consecutive_combinations
     
 
     def updating_prediction_list(self, window_actual, window_predicted):
+        """
+        Taking the window data as input, comparing and adding 
+        missing data to the predicted dataset.
         
+        arguments: window_actual = actual dataset,
+        window_predicted = predicted dataset
+        """
         actual = sorted(window_actual, key=lambda x: (x[0], x[1]))
         predicted = sorted(window_predicted, key=lambda x: (x[0], x[1]))
         new_predicted = list(predicted)
@@ -34,6 +45,9 @@ class PredictionValidation(object):
         return (actual, new_predicted)
     
     def error_per_window(self, hour, window_actual, new_window_predicted):
+        """
+        total error and number of observations (per hour) is returned
+        """
         window = str(hour)
         errorList = list()
         for i in range(len(window_actual)):
