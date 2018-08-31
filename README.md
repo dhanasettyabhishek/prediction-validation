@@ -16,9 +16,9 @@ Programming language used:
 
 ### Problem Statement:
 
-> We read two different files, one provides the actual value of each stock every hour and the second lists the predicted value of the various stock at a certain hour during the same time period.
+> We read two different files, one file provides the actual value of each stock every hour and the second the predicted value of the various stock at a certain hour during the same time period.
 
-> I am obtaining the `average error` by calculating the average difference between the actual stock prices and predicted values over a specified sliding time window.
+> Obtain the `average error` by calculating the average difference between the actual stock prices and predicted values over a specified sliding time window.
 
 ### Introduction:
 
@@ -54,3 +54,6 @@ From the given input dataset, I am calculating the average error per time window
 ### Results
 
 The results are stored in the output folder as comparison.txt
+
+
+Thank you.
